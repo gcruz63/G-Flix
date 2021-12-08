@@ -1,5 +1,14 @@
 .Row{
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+    flex-direction: column;
+
+} 
+.MovieContainer{
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.movieItem{
+    margin-right: 15px;
 }

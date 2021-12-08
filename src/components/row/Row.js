@@ -1,7 +1,7 @@
 import "./Row.css"
 import { useState, useEffect } from "react"
-
-function Row({ title, fetchURL }) {
+import { Link } from "react-router-dom"
+function Row({ sectionTitle, fetchURL }) {
     const [movies, setMovies] = useState([])
 
     useEffect(() => {
@@ -31,16 +31,22 @@ function Row({ title, fetchURL }) {
 
     return (
         <div className="Row">
-            <h2 className="title">{title}</h2>
-            {movies.map((movie) => (
-                <div key={movie.id}>
-                    <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
-                    <p>
+            {/* section title */}
+            <h2 className="title">{sectionTitle}</h2>
+            { /*movies list container that contains list of movie elements*/}
+            <div className="MovieContainer">
+                {/* movie.map itrates over an array of movie */}
+                {movies.map((movie) => (
+                    //  the link is an href for the movies and the to= is the path that the link will goto when clicked
+                    <Link key={movie.id} to={`/movie/${movie.id}`}>
+                        <div className="movieItem" >
 
-                    </p>
-                </div>
+                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
 
-            ))}
+                        </div>
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 }
