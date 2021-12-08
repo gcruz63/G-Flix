@@ -1,13 +1,18 @@
 import './App.css';
-import Row from './components/row/Row';
-import requests from './requests';
+import Home from './pages/Home'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import MovieDetails from './pages/MovieDetails';
+
 
 function App() {
   return (
     <div className="App">
-      <Row title="Trending Now" fetchURL={requests.trending} />
-      <Row title="Top Rated" fetchURL={requests.topRated} />
-      <Row title="Popular" fetchURL={requests.popular} />
+      <Router>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/movie/:movieId' element={<MovieDetails />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
