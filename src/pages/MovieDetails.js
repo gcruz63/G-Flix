@@ -31,8 +31,8 @@ function MovieDetails() {
     return details && (
         <div className='MovieDetails'>
 
-            {/* <img width='900' src={`https://image.tmdb.org/t/p/original${details.backdrop_path ? details.backdrop_path : details.poster_path}`} /> */}
-            <img width='450' src={`https://image.tmdb.org/t/p/original${details.poster_path ? details.poster_path : details.backdrop_path}`} />
+            <img width='450' src={`https://image.tmdb.org/t/p/original${details.backdrop_path ? details.backdrop_path : details.poster_path}`} />
+            {/* <img width='450' src={`https://image.tmdb.org/t/p/original${details.poster_path ? details.poster_path : details.backdrop_path}`} /> */}
             {details.genre}
             {details.overview}
         </div>
