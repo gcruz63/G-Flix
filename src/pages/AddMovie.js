@@ -8,6 +8,7 @@ export const AddMovieForm = () => {
         genre: ""
     });
     const { resolveResource, resource } = useResourceResolver()
+    const [genre, changeGenre] = useState([])
     const history = useHistory()
 
     const addMovie = (evt) => {
