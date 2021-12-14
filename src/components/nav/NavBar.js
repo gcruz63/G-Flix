@@ -10,10 +10,17 @@ export const NavBar = () => {
                     <Link className="navbar__link" to='/'>Movies</Link>
                 </li>
                 <li className="navbar__item active">
+                    <Link className="navbar__link" to='/add/newMovie'>Add a movie</Link>
+                </li>
+                <li className="navbar__item active">
+                    <Link className="navbar__link" to='/your/watchlist'>Watchlist</Link>
+                </li>
+
+                <li className="navbar__item active">
                     <Link className="navbar__link" to="#"
                         onClick={
                             () => {
-                                localStorage.removeItem("gflix_customer")
+                                localStorage.removeItem("gflix_user")
                             }
                         }>
                         Logout

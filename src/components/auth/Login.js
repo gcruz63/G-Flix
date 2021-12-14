@@ -8,18 +8,20 @@ export const Login = () => {
     const existDialog = useRef()
     const history = useHistory()
 
-    const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/customers?email=${email}`)
+    const getExistingUser = () => {
+        return fetch(`http://localhost:8088/users?email=${email}`)
             .then(res => res.json())
-            .then(user => user.length ? user[0] : false)
+            .then(user => user)
     }
 
     const handleLogin = (e) => {
         e.preventDefault()
-        existingUserCheck()
-            .then(exists => {
-                if (exists) {
-                    localStorage.setItem("gflix_customer", exists.id)
+        getExistingUser()
+            .then(user => {
+                if (user) {
+                    //the response returns the user inside of array,
+                    //so i want it to return as an object so user [0] does that
+                    localStorage.setItem("gflix_user", JSON.stringify(user[0]))
                     history.push("/")
                 } else {
                     existDialog.current.showModal()

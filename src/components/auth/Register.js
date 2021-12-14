@@ -27,8 +27,8 @@ export const Register = (props) => {
                     })
                         .then(res => res.json())
                         .then(createdUser => {
-                            if (createdUser.hasOwnProperty("id")) {
-                                localStorage.setItem("gflix_user", createdUser.id)
+                            if (createdUser) {
+                                localStorage.setItem("gflix_user", JSON.stringify(createdUser[0]))
                                 history.push("/")
                             }
                         })
