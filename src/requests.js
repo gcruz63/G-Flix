@@ -8,6 +8,7 @@ const requests = {
 
     popular: `/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
 
+
     movieDetails: (movieId) => {
         //returns id from details page and passes it to the movieDetail url that will fetch the movie detail
         return `/movie/${movieId}?api_key=${API_KEY}&language=en-US`
@@ -15,3 +16,5 @@ const requests = {
 }
 
 export default requests;
+
+

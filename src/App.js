@@ -11,7 +11,7 @@ function App() {
     <>
       <Route
         render={() => {
-          if (localStorage.getItem("gflix_customer")) {
+          if (localStorage.getItem("gflix_user")) {
             return (
               <>
                 <NavBar />

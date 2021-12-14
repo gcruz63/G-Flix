@@ -1,63 +1,83 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom";
-import useResourceResolver from "../resource/useResourceRevolver";
+import GenreRepository from "../components/GenreRepository";
 
-export const AddMovieForm = () => {
+
+function AddMovieForm() {
     const [movie, updateMovie] = useState({
+        userId: "",
+        imgURL: "",
         overview: "",
         genre: ""
     });
-    const { resolveResource, resource } = useResourceResolver()
     const [genre, changeGenre] = useState([])
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("gflix_user")))
     const history = useHistory()
+    const [userGenres, setUserGenres] = useState([])
+
+
+    useEffect(() => {
+        GenreRepository.getGenres()
+            .then((res) => setUserGenres(res))
+    }, [])
 
     const addMovie = (evt) => {
+        //stops the form from refreshing the page
         evt.preventDefault()
 
-        const newMovie = {
-            overview: movie.overview,
-            genre: movie.genre,
-            userId: parseInt(localStorage.getItem("gflix_user")),
-            employeeId: 1,
-            dateCompleted: ""
-        }
+        const copy = { ...movie }
+        copy.userId = currentUser.id
+        updateMovie(copy)
+
+
 
         const fetchOption = {
             method: "POST",
             headers: {
+                //lets the api know the information its about to get is json
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(newMovie)
+            //takes the data an converts it to a string
+            body: JSON.stringify(movie)
         }
 
-        return fetch("http://localhost:8088/genres", fetchOption)
+        return fetch("http://localhost:8088/addNewMovie", fetchOption)
+            // after the fetch is complete 
             .then(() => {
-                history.push("/movies")
-            })
-            .then(() => {
-
+                //forces a redirect to movies
+                history.push("/your/watchlist")
             })
 
     }
 
-    const assignGenre = (genreId) => {
-        const genreObj = {
-            userId: parseInt(userId),
-            genreId: genreId,
-        }
-        const existingUserGenre = userGenres.find(obj => obj.userId === parseInt(userId) && obj.genreId === genreId)
-
-        if (!existingUserGenre) {
-            UserRepository.assignGenre(genreObj)
-            resolveResource(user, userId, UserRepository.get)
-        }
-        resolveResource(user, userId, UserRepository.get)
-    }
+    // const assignGenre = (genreId) => {
+    //     const genreObj = {
+    //         userId: currentUser.id,
+    //         genreId: genreId,
+    //     }
+    //     const existingUserGenre = userGenres.find(obj => obj.userId === currentUser.id && obj.genreId === genreId)
+    //     // if existing user genre is not found
+    //     if (!existingUserGenre) {
+    //         //add genre to the user
+    //         GenreRepository.assignGenre(genreObj)
+    //     }
+    // }
 
 
     return (
         <form className="addMovieForm">
-            <h2 className="addMovieForm__title">New Movie</h2>
+            <h2 className="addMovieForm__title">Add New Movie</h2>
+            <fieldset className="fieldset">
+                <input type="url" name="url" placeholder="URL of img"
+                    onChange={
+                        (evt) => {
+                            const copy = { ...movie }
+                            copy.imgURL = evt.target.value
+                            updateMovie(copy)
+                        }
+                    }
+                />
+            </fieldset>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="overview">Description:</label>
@@ -65,7 +85,7 @@ export const AddMovieForm = () => {
                         required autoFocus
                         type="text"
                         className="form-control"
-                        placeholder="Brief overview of problem"
+                        placeholder="Brief description about the movie"
                         onChange={
                             (evt) => {
                                 const copy = { ...movie }
@@ -77,17 +97,19 @@ export const AddMovieForm = () => {
                 </div>
             </fieldset>
             <fieldset>
-                {resource?.genre?.length < 5
-                    ? <><label for="genre-select"> Choose a genre:</label>
-                        <select name="genres" id="genre-select" onChange={(evt) => {
-                            assignGenre(parseInt(evt.target.value))
-                        }} >
-                            <option value="">--Please choose a genre--</option>
-                            {genres.map((gen) => (
-                                <option key={gen.id} value={gen.id}>{gen.genreType}</option>
-                            ))}
-                        </select></>
-                    : ""}
+
+                <><label htmlFor="genre-select"> Choose a genre:</label>
+                    <select name="genres" id="genre-select" onChange={(evt) => {
+                        const copy = { ...movie }
+                        copy.genre = parseInt(evt.target.value)
+                        updateMovie(copy)
+                    }} >
+                        <option value="">--Please choose a genre--</option>
+                        {userGenres.map((gen) => (
+                            <option key={gen.id} value={gen.id}>{gen.genreType}</option>
+                        ))}
+                    </select></>
+
 
             </fieldset>
             <button className="btn btn-primary" onClick={addMovie}>
@@ -96,3 +118,5 @@ export const AddMovieForm = () => {
         </form>
     )
 }
+
+export default AddMovieForm

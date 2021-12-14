@@ -1,0 +1,21 @@
+.Spot{
+    display: flex;
+    flex-direction: column;
+
+} 
+.MovieContainer{
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.movieItem{
+    margin-right: 15px;
+}
+
+.movieItem img {
+    width: 300px;
+    height: 400px;
+    object-fit: cover;
+}
+
