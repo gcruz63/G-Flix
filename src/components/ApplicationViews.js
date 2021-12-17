@@ -1,5 +1,6 @@
 import React from "react"
 import { Route } from "react-router-dom";
+import AddedMovieDetails from "../pages/AddedMovieDetails";
 import AddMovieForm from "../pages/AddMovie";
 import Home from '../pages/Home'
 import MovieDetails from '../pages/MovieDetails';
@@ -19,6 +20,9 @@ function ApplicationViews() {
             </Route>
             <Route exact path='/your/watchlist'>
                 <Watchlist />
+            </Route>
+            <Route exact path="/addMovieDetails/:movieId">
+                <AddedMovieDetails />
             </Route>
             {/* <Route path="/employees/create">
                 <EmployeeForm />

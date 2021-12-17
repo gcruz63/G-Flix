@@ -38,10 +38,10 @@ function Spot({ sectionTitle, fetchURL }) {
                 {/* movie.map iterates over an array of movie */}
                 {addNewMovies?.map((addedMovie) => (
                     //  the link is an href for the addedMovies and the to= is the path that the link will goto when clicked
-                    <Link key={addedMovie.id} to={`/addedMovie/${addedMovie.id}`}>
+                    <Link key={addedMovie.id} to={`/addMovieDetails/${addedMovie.id}`}>
                         <div className="movieItem" >
 
-                            <img src={`${addedMovie.imgURL}`} />
+                            <img alt="movie" src={`${addedMovie.imgURL}`} />
 
                         </div>
                     </Link>

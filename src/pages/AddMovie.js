@@ -10,8 +10,8 @@ function AddMovieForm() {
         overview: "",
         genre: ""
     });
-    const [genre, changeGenre] = useState([])
-    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem("gflix_user")))
+    //declaring currentUser into a valid json string 
+    const [currentUser] = useState(JSON.parse(localStorage.getItem("gflix_user")))
     const history = useHistory()
     const [userGenres, setUserGenres] = useState([])
 
@@ -20,6 +20,7 @@ function AddMovieForm() {
         GenreRepository.getGenres()
             .then((res) => setUserGenres(res))
     }, [])
+
 
     const addMovie = (evt) => {
         //stops the form from refreshing the page
@@ -49,20 +50,6 @@ function AddMovieForm() {
             })
 
     }
-
-    // const assignGenre = (genreId) => {
-    //     const genreObj = {
-    //         userId: currentUser.id,
-    //         genreId: genreId,
-    //     }
-    //     const existingUserGenre = userGenres.find(obj => obj.userId === currentUser.id && obj.genreId === genreId)
-    //     // if existing user genre is not found
-    //     if (!existingUserGenre) {
-    //         //add genre to the user
-    //         GenreRepository.assignGenre(genreObj)
-    //     }
-    // }
-
 
     return (
         <form className="addMovieForm">

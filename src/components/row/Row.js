@@ -41,7 +41,7 @@ function Row({ sectionTitle, fetchURL }) {
                     <Link key={movie.id} to={`/movie/${movie.id}`}>
                         <div className="movieItem" >
 
-                            <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
+                            <img alt="movie" src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} />
 
                         </div>
                     </Link>
