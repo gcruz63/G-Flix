@@ -7,7 +7,7 @@ export const NavBar = () => {
         <>
             <ul className="navbar">
                 <li className="navbar__item active">
-                    <Link className="navbar__link" to='/'>Movies</Link>
+                    <Link className="navbar__link" to='/'>Back</Link>
                 </li>
                 <li className="navbar__item active">
                     <Link className="navbar__link" to='/add/newMovie'>Add a movie</Link>
